@@ -12,18 +12,18 @@ from src.models.base_model import BaseModel
 
 Base = declarative_base()
 
+
 class Partner(BaseModel):
-    __tablename__ = "PARTNER"
-    id_ = Column(Integer, primary_key=True)
-    cnpj = Column(String(length=50))
-    name = Column(String(length=50), nullable=False)
-    description = Column(String(length=200), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    partnership_status = Column(String(length=20), default="Not Initiated")
-    uf = Column(String(length=2))
-    phone = Column(String(length=20))
-    email = Column(String(length=50))
-    cnpj_status = Column(String(length=50))
+    __tablename__ = "partner"
+    cnpj = Column("cnpj", String(length=50))
+    name = Column("name", String(length=50), nullable=False)
+    description = Column("description", String(length=200), nullable=False)
+    created_at = Column("created_at", DateTime, default=datetime.utcnow)
+    partnership_status = Column("partnership_status", String(length=20), default="Not Initiated")
+    uf = Column("uf", String(length=2))
+    phone = Column("phone", String(length=20))
+    email = Column("email", String(length=50))
+    cnpj_status = Column("cnpj_status", String(length=50))
 
     def __init__(self, cnpj, description, partnership_status):
 
@@ -53,7 +53,7 @@ class Partner(BaseModel):
             raise TypeError("CNPJ must be str.")
         if not re.search(r"\d", cnpj):
             raise ValueError("There must be numbers in CNPJ.")
-        
+
         cnpj = "".join(re.findall(r"\d", cnpj))
         return cnpj
 
@@ -65,7 +65,7 @@ class Partner(BaseModel):
             raise ValueError("Name length must not exceed 50 characters.")
         if not name.strip():
             raise ValueError("Name must not be empty.")
-        
+
         name = self.transform_string(name)
         return name
 
@@ -80,17 +80,17 @@ class Partner(BaseModel):
         if not isinstance(email, str):
             raise TypeError("E-mail must be str.")
         return email
-    
+
     @validates("phone")
     def validate_name(self, key, phone):
         if not isinstance(phone, str):
             raise TypeError("Phone must be str.")
         return phone
-    
+
     @validates("cnpj_status")
     def validate_name(self, key, cnpj_status):
         if not isinstance(cnpj_status, str):
-           raise TypeError("CPJ STATUS must be str.")
+            raise TypeError("CPJ STATUS must be str.")
         return cnpj_status
 
     @validates("description")
@@ -101,7 +101,7 @@ class Partner(BaseModel):
             raise ValueError("Description length must not exceed 50 characters.")
         if not description.strip():
             raise ValueError("Description must not be empty.")
-        
+
         description = self.transform_string(description)
         return description
 
@@ -118,7 +118,7 @@ class Partner(BaseModel):
             raise ValueError("Partnership_status length must not exceed 20 characters.")
         if not partnership_status.strip():
             raise ValueError("Partnership_status must not be empty.")
-        
+
         partnership_status = partnership_status.lower()
         if partnership_status not in ["not initiated", "ongoing", "done"]:
             raise ValueError("Partnership Status must be one of ['not initiated', 'ongoing', 'done']")
