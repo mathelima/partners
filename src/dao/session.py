@@ -11,7 +11,7 @@ class Session:
         user = 'topskills14'
         password = 'olist21'
         dbname = 'topskills14'
-        self.__conn_string = f'{connector}://{user}:{password}@{host}:3306/{dbname}'
+        self.__conn_string = f'{connector}://{user}:{password}@{host}:5432/{dbname}'
         self.__engine = create_engine(self.__conn_string)
         BaseModel.metadata.bind = self.__engine
         BaseModel.metadata.create_all()
