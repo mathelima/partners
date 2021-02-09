@@ -7,10 +7,15 @@ from src.models.partner import Partner
 class PartnerResource(BaseResource):
     fields = {
         "id_": fields.Integer,
+        "cnpj": fields.String,
         "name": fields.String,
         "description": fields.String,
-        "type": fields.String,
-        "status": fields.String
+        "created_at": fields.String,
+        "partnership_status": fields.String,
+        "uf": fields.String,
+        "phone": fields.String,
+        "email": fields.String,
+        "cnpj_status": fields.String
     }
 
     def __init__(self):
